@@ -1,0 +1,11 @@
+void initialize(Stack *stack);
+
+bool isEmpty(Stack *stack);
+
+bool isFull(Stack *stack);
+
+void push(Stack *stack, int value);
+
+int pop(Stack *stack);
+
+int peek(Stack *stack);
