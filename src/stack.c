@@ -14,19 +14,21 @@ struct stack *stack_init(void) // inizializzazione di uno stack
 
 void push(struct stack *Istack, char *value)
 {
-  struct stack_entry *entry = malloc(sizeof *entry); 
-  if (entry)
-  {
-    entry->data = strdup(value); // duplicazione stringa in data
-    entry->next = Istack->head;  // aggiornamenti di next e head
-    Istack->head = entry;
-    Istack->stackSize++;
-  }
-  else
-  {
-    exit(EXIT_FAILURE);
-  }
+    struct stack_entry *entry = malloc(sizeof *entry); 
+    if (entry)
+    {
+	entry->data = strdup(value); // duplicazione stringa in data
+	entry->next = Istack->head;  // aggiornamenti di next e head
+	Istack->head = entry;
+	Istack->stackSize++;
+    }
+    else
+    {
+	exit(EXIT_FAILURE);
+    }
 }
+
+
 
 char *top(struct stack *Istack)
 {

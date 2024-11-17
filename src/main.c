@@ -1,18 +1,18 @@
 #include <stdio.h>
 #include <math.h>
-#include "mat_functions.h"
+#include <stdlib.h>
+//#include "mat_functions.h"
 #include "stack.h"
+#define DOUBLE_DIGITS 16
+#include "tokenizer.h"
 
 int main()
 {
+    char *expression = "2*(1-3) + 3*cos(PI) - atan(1/4)";
     struct stack *thisStack = stack_init();
 
-
-    push(thisStack, "foo, bar");
-    push(thisStack, "bar, foo");
-    printf("%s\n", top(thisStack));
-    pop(thisStack);
-    printf("%s\n", top(thisStack));
+    struct token *next_token = tokenize(&expression);
+    printf("%s\n", next_token->tkn);
     
-    return 0;
+    return EXIT_SUCCESS;
 }

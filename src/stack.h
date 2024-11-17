@@ -23,8 +23,6 @@ struct stack *stack_init(void);
 
 void push(struct stack *Istack, char *value);
 
-void push(struct stack *Istack, char *value);
-
 char *top(struct stack *Istack);
 
 void pop(struct stack *Istack);
