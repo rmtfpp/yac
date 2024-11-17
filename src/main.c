@@ -5,9 +5,14 @@
 
 int main()
 {
-    Stack stack;
-    initialize(&stack);
-    push(&stack, 'ab');
-    printf("%d", pop(&stack));
+    struct stack *thisStack = stack_init();
+
+
+    push(thisStack, "foo, bar");
+    push(thisStack, "bar, foo");
+    printf("%s\n", top(thisStack));
+    pop(thisStack);
+    printf("%s\n", top(thisStack));
+    
     return 0;
 }

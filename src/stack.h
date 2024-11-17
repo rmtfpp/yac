@@ -3,26 +3,34 @@
 
 #include <stdbool.h>
 #include <stdio.h>
+#include <stdlib.h>
 
-#define MAX_STACK_SIZE 100
+#include "string_f.h"
 
-typedef struct {
-    // Array to store stack elements
-    int arr[MAX_STACK_SIZE];  
-    // Index of the top element in the stack
-    int top;        
-} Stack;
+struct stack_entry
+{
+    char *data;
+    struct stack_entry *next;
+};
 
-void initialize(Stack *stack);
+struct stack
+{
+    struct stack_entry *head;
+    size_t stackSize;
+};
 
-bool isEmpty(Stack *stack);
+struct stack *stack_init(void);
 
-bool isFull(Stack *stack);
+void push(struct stack *Istack, char *value);
 
-void push(Stack *stack, int value);
+void push(struct stack *Istack, char *value);
 
-int pop(Stack *stack);
+char *top(struct stack *Istack);
 
-int peek(Stack *stack);
+void pop(struct stack *Istack);
+
+void clear (struct stack *Istack);
+
+void destroyStack(struct stack **Istack);
 
 #endif
