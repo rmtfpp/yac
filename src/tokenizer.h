@@ -3,6 +3,8 @@
 
 #include <stdlib.h>
 #include <stdbool.h>
+#include <stdio.h>
+#include <string.h>
 
 #define OPERATOR_LENGTH 1
 #define FUNCTION_LENGTH 3
@@ -22,8 +24,8 @@ struct token
 
 bool is_operator(char token);
 
-void rmspaces(char* str);
+bool is_function(char *token);
 
-struct token *tokenize(char **expression);
+struct token *get_token(char *exp);
 
 #endif

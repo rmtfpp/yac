@@ -8,11 +8,23 @@
 
 int main()
 {
-    char *expression = "2*(1-3) + 3*cos(PI) - atan(1/4)";
+    char *exp = "2*(1-3) + 3*sin(PI) - atan(1/4)'\0'";
     struct stack *thisStack = stack_init();
 
-    struct token *next_token = tokenize(&expression);
-    printf("%s\n", next_token->tkn);
+    while(exp[0] != '\0')
+    {
+	struct token *token = get_token(exp);
+	if (token->tkn)
+	{
+	    exp = exp + strlen(token->tkn);
+	}
+	else
+	{
+	    exp++;
+	}
+	
+    }
+    
     
     return EXIT_SUCCESS;
 }
