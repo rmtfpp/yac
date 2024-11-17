@@ -1,3 +1,3 @@
 # YAC
 
-vostra madre puzza
+yet another calculator
