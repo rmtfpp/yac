@@ -1,5 +1,7 @@
 #include "tokenizer.h"
 
+char *math_functions[] = {"sin", "cos", "tan", "asn", "acs", "atn"};
+
 bool is_operator(char token)
 {
     return token == '+' || token == '-' || token == '*' || token == '/' || token == '^';
@@ -7,10 +9,21 @@ bool is_operator(char token)
 
 bool is_function(char *token)
 {
-    char *tmp = malloc(sizeof(char) * FUNCTION_LENGTH);
-    strncpy(tmp, token, FUNCTION_LENGTH);
-
-    return (strcmp(tmp, "sin") == 0);
+    bool is_function = 0;
+    
+    for(int i = 0; i < sizeof(math_functions)/sizeof(math_functions[0]); i++)
+    {
+	char *tmp = malloc(sizeof(char) * FUNCTION_LENGTH);
+	strncpy(tmp, token, FUNCTION_LENGTH);
+	
+	if(strcmp(tmp, math_functions[i]) == 0)
+	{
+	    is_function = 1;
+	    break;
+	}
+    }
+    
+    return is_function;
 }
 
 struct token *get_token(char *exp)
@@ -36,7 +49,6 @@ struct token *get_token(char *exp)
 	token->tt = Function;
 	printf("%s\n", token->tkn);
     }
-    
     
     return token;
 }
