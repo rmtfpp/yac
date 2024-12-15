@@ -6,13 +6,21 @@
 #define DOUBLE_DIGITS 16
 #include "tokenizer.h"
 
-void evaluate(char *exp)
+void evaluate(char *exp, struct stack *operator_stack)
 {
   while(exp[0] != '\0')
   {
       struct token *token = get_token(exp);
       if (token->tkn)
       {
+	  if(token->tt == Function || token->tt = Operator)
+	  {
+	      push(operator_stack, token->tkn);
+	  }
+	  else if(token->tt == Operand)
+	  {
+	      //
+	  }
 	  exp = exp + strlen(token->tkn);
       }
       else
@@ -25,9 +33,10 @@ void evaluate(char *exp)
 int main()
 {
     char *exp = "2*(1-3) + 3*sin(PI) - tan(1)'\0'";
-    struct stack *thisStack = stack_init();
+    struct stack *operator_stack = stack_init();
+    // QUEUE operand TO BE ADDED HERE
 
-    evaluate(exp);
+    evaluate(exp, operator_stack); // AND operand QUEUE
 
     return EXIT_SUCCESS;
 }

@@ -43,7 +43,7 @@ void pop(struct stack *Istack)
 {
   if (Istack->head != NULL)
   {
-    struct stack_entry *tmp = Istack->head; // punta a head da deletare
+    struct stack_entry *tmp = Istack->head; 1// punta a head da deletare
     Istack->head = Istack->head->next;      // cambio head con successiva
     free(tmp->data);                        // rimozione head da deletare
     free(tmp);
