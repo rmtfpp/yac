@@ -13,7 +13,7 @@ void evaluate(char *exp, struct stack *operator_stack)
       struct token *token = get_token(exp);
       if (token->tkn)
       {
-	  if(token->tt == Function || token->tt = Operator)
+	  if(token->tt == Function || token->tt == Operator)
 	  {
 	      push(operator_stack, token->tkn);
 	  }
@@ -32,7 +32,7 @@ void evaluate(char *exp, struct stack *operator_stack)
 
 int main()
 {
-    char *exp = "2*(1-3) + 3*sin(PI) - tan(1)'\0'";
+    char *exp = "21*(1-3) + 3*sin(PI) - tan(1)'\0'";
     struct stack *operator_stack = stack_init();
     // QUEUE operand TO BE ADDED HERE
 

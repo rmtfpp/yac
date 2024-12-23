@@ -26,6 +26,31 @@ bool is_function(char *token)
     return is_function;
 }
 
+
+int number_size(char *token)
+{
+    int num_size = 0;
+
+    while(isdigit(token[0]))
+    {
+	num_size++;
+	token++;
+    }
+    return num_size;
+}
+
+
+bool is_number(char *token)
+{
+    bool is_number = 0;
+    int num_size = number_size(token);
+   
+    if(num_size != 0)
+    {
+	return 1;
+    }
+}
+
 struct token *get_token(char *exp)
 {
     struct token *token = malloc(sizeof *token);
@@ -47,6 +72,13 @@ struct token *get_token(char *exp)
 	token->tkn = malloc((FUNCTION_LENGTH + 1) * sizeof(char));
 	strncpy(token->tkn, &(exp[0]), FUNCTION_LENGTH);
 	token->tt = Function;
+	printf("%s\n", token->tkn);
+    }
+    else if(is_number(&(exp[0])))
+    {
+	token->tkn = malloc((number_size(&(exp[0])) + 1) * sizeof(char));
+	strncpy(token->tkn, &(exp[0]), number_size(&(exp[0])));
+	token->tt = Operand;
 	printf("%s\n", token->tkn);
     }
     

@@ -5,6 +5,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 
 #define OPERATOR_LENGTH 1
 #define FUNCTION_LENGTH 3

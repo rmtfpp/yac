@@ -1,4 +1,6 @@
 TARGET_EXEC := a
+CXX := g++
+CC := gcc
 
 BUILD_DIR := ./build
 SRC_DIRS := ./src
