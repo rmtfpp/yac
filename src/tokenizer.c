@@ -65,21 +65,18 @@ struct token *get_token(char *exp)
 	token->tkn = malloc((OPERATOR_LENGTH + 1) * sizeof(char));
 	strncpy(token->tkn, &(exp[0]), OPERATOR_LENGTH);
 	token->tt = Operator;
-	printf("%s\n", token->tkn);
     }
     else if(is_function(&(exp[0])))
     {
 	token->tkn = malloc((FUNCTION_LENGTH + 1) * sizeof(char));
 	strncpy(token->tkn, &(exp[0]), FUNCTION_LENGTH);
 	token->tt = Function;
-	printf("%s\n", token->tkn);
     }
     else if(is_number(&(exp[0])))
     {
 	token->tkn = malloc((number_size(&(exp[0])) + 1) * sizeof(char));
 	strncpy(token->tkn, &(exp[0]), number_size(&(exp[0])));
 	token->tt = Operand;
-	printf("%s\n", token->tkn);
     }
     
     return token;
