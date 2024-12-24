@@ -40,7 +40,7 @@ int number_size(char *token)
 {
     int num_size = 0;
 
-    while(isdigit(token[0]))
+    while(isdigit(token[0]) || token[0] == '.')
     {
 	num_size++;
 	token++;
