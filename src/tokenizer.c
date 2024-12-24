@@ -1,6 +1,6 @@
 #include "tokenizer.h"
 
-char *math_functions[] = {"sin", "cos", "tan", "asn", "acs", "atn"};
+char *math_functions[] = {"sin", "cos", "tan", "asn", "acs", "atn", "lne", "exp", "log"};
 
 bool is_operator(char token)
 {

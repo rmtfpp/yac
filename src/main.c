@@ -148,7 +148,7 @@ double postfix_eval(struct queue *output_queue, struct stack *eval_stack)
 		    result = pow(B, A);
 	    }
 
-	    char *result_str = malloc(50);
+	    char *result_str = malloc(64);
 	    if (!result_str)
 	    {
 		exit(EXIT_FAILURE);
@@ -158,6 +158,50 @@ double postfix_eval(struct queue *output_queue, struct stack *eval_stack)
 	    push(eval_stack, result_str);
 
 	    popQueue(output_queue);
+	}
+	else if(is_function(front(output_queue)))
+	{
+	    double A = strtod(top(eval_stack), NULL);
+	    pop(eval_stack);
+
+	    double result;
+
+	    // ricordati di definirle sempre anche in tokenizer
+
+	    if (strcmp(front(output_queue), "tan") == 0) {  
+		result = tan(A);
+	    } else if (strcmp(front(output_queue), "sin") == 0) {
+		result = sin(A);
+	    } else if (strcmp(front(output_queue), "cos") == 0) {
+		result = cos(A);
+	    } else if (strcmp(front(output_queue), "atn") == 0) {
+		result = atan(A);
+	    } else if (strcmp(front(output_queue), "asn") == 0) {
+		result = asin(A);
+	    } else if (strcmp(front(output_queue), "acs") == 0) {
+		result = acos(A);
+	    } else if (strcmp(front(output_queue), "lne") == 0) {
+		result = log(A);
+	    } else if (strcmp(front(output_queue), "exp") == 0) {
+		result = exp(A);
+	    } else if (strcmp(front(output_queue), "log") == 0) {
+		double B = strtod(top(eval_stack), NULL);
+		pop(eval_stack);
+		result = log(A) / log(B); // log(base, esponente)         
+	    } else {
+		printf("operazione non valida: %s\n", front(output_queue));
+	    }
+	    
+	    char *result_str = malloc(64);
+	    if (!result_str)
+	    {
+		exit(EXIT_FAILURE);
+	    }
+	    
+	    sprintf(result_str, "%f", result);
+	    push(eval_stack, result_str);
+
+	    popQueue(output_queue);   
 	}
     }
     double res = strtod(top(eval_stack), NULL);
@@ -180,7 +224,7 @@ void evaluate(char *exp)
 
 int main()
 {
-    char *exp = "2 + 1 - 4*5 \0";
+    char *exp = "acs(tan(exp(5)))/3\0";
 
     evaluate(exp);
 
