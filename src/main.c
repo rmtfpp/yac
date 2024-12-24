@@ -25,69 +25,80 @@ bool is_left_assoc(char token)
     return false;
 }
 
-void evaluate(char *exp, struct stack *operator_stack, struct queue *output_queue) {
+void postfix_enqueue(char *exp, struct stack *operator_stack, struct queue *output_queue)
+{
     char *ptr = exp;
     
-    while(*ptr) {
+    while(*ptr)
+    {
         while(isspace(*ptr)) ptr++;
         if(!*ptr || *ptr == '\'') break;
         
         struct token *token = get_token(ptr);
-        if(!token->tkn) {
+        if(!token->tkn)
+	{
             free(token);
             ptr++;
             continue;
         }
         
-        switch (token->tt) {
-            case Number:
-                enqueue(output_queue, token->tkn);
-                break;
-            case Function:
-                push(operator_stack, token->tkn);
-                break;
-            case Operator:
-                while (top(operator_stack) && *top(operator_stack) != '(' && 
-                      (precedence(*top(operator_stack)) > precedence(*token->tkn) ||
-                      (precedence(*top(operator_stack)) == precedence(*token->tkn) && 
-                       is_left_assoc(*token->tkn)))) {
-                    enqueue(output_queue, top(operator_stack));
-                    pop(operator_stack);
-                }
-                push(operator_stack, token->tkn);
-                break;
-            case Comma:
-                while (top(operator_stack) && *top(operator_stack) != '(') {
-                    enqueue(output_queue, top(operator_stack));
-                    pop(operator_stack);
-                }
-                break;
-            case LBracket:
-                push(operator_stack, token->tkn);
-                break;
-            case RBracket:
-                while (top(operator_stack) && *top(operator_stack) != '(') {
-                    enqueue(output_queue, top(operator_stack));
-                    pop(operator_stack);
-                }
-                if (!top(operator_stack)) {
-                    free(token);
-                    return;
-                }
+        switch (token->tt)
+	{
+        case Number:
+            enqueue(output_queue, token->tkn);
+            break;
+        case Function:
+            push(operator_stack, token->tkn);
+            break;
+        case Operator:
+            while (top(operator_stack) && *top(operator_stack) != '(' && 
+            (precedence(*top(operator_stack)) > precedence(*token->tkn) ||
+            (precedence(*top(operator_stack)) == precedence(*token->tkn) && 
+            is_left_assoc(*token->tkn))))
+	    {
+                enqueue(output_queue, top(operator_stack));
                 pop(operator_stack);
-                if (top(operator_stack) && strlen(top(operator_stack)) > 1) {
-                    enqueue(output_queue, top(operator_stack));
-                    pop(operator_stack);
-                }
-                break;
+            }
+            push(operator_stack, token->tkn);
+            break;
+        case Comma:
+            while (top(operator_stack) && *top(operator_stack) != '(')
+	    {
+                enqueue(output_queue, top(operator_stack));
+                pop(operator_stack);
+            }
+            break;
+        case LBracket:
+            push(operator_stack, token->tkn);
+            break;
+        case RBracket:
+            while (top(operator_stack) && *top(operator_stack) != '(')
+	    {
+                enqueue(output_queue, top(operator_stack));
+                pop(operator_stack);
+            }
+            if (!top(operator_stack))
+	    {
+                free(token);
+                return;
+            }
+            pop(operator_stack);
+            if (top(operator_stack) && strlen(top(operator_stack)) > 1)
+	    {
+                enqueue(output_queue, top(operator_stack));
+                pop(operator_stack);
+            }
+            break;
         }
         
         ptr += strlen(token->tkn);
         free(token);
     }
     
-    while(top(operator_stack)) {
-        if(*top(operator_stack) == '(') {
+    while(top(operator_stack))
+    {
+        if(*top(operator_stack) == '(')
+	{
             pop(operator_stack);
             continue;
         }
@@ -96,13 +107,19 @@ void evaluate(char *exp, struct stack *operator_stack, struct queue *output_queu
     }
 }
 
-int main()
+void evaluate(char *exp)
 {
-    char *exp = "tan ( 2 + 1 ) - 4 * cos(1)'\0'";
     struct stack *operator_stack = stack_init();
     struct queue *output_queue = queue_init();
 
-    evaluate(exp, operator_stack, output_queue);
+    postfix_enqueue(exp, operator_stack, output_queue);
+}
+
+int main()
+{
+    char *exp = "tan ( 2 + 1 ) - 4 * cos(1)'\0'";
+
+    evaluate(exp);
 
     return EXIT_SUCCESS;
 }
