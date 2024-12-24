@@ -14,7 +14,11 @@ typedef enum
 {
     Operator,
     Function,
-    Operand
+    Number,
+    LBracket,
+    RBracket,
+    Comma,
+    Invalid
 } token_type;
 
 struct token
