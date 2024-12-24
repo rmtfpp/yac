@@ -26,9 +26,9 @@ bool is_left_assoc(char token)
     return false;
 }
 
-void postfix_enqueue(char *exp, struct stack *operator_stack, struct queue *output_queue)
+void postfix_enqueue(char *expression, struct stack *operator_stack, struct queue *output_queue)
 {
-    char *ptr = exp;
+    char *ptr = expression;
     
     while(*ptr)
     {
@@ -210,23 +210,23 @@ double postfix_eval(struct queue *output_queue, struct stack *eval_stack)
 }
 
 
-void evaluate(char *exp)
+void evaluate(char *expression)
 {
     struct stack *operator_stack = stack_init();
     struct queue *output_queue = queue_init();
 
     struct stack *eval_stack = stack_init();
 
-    postfix_enqueue(exp, operator_stack, output_queue);
+    postfix_enqueue(expression, operator_stack, output_queue);
     double result = postfix_eval(output_queue, eval_stack);
-    printf("%s = %f\n", exp, result);
+    printf("%s = %f\n", expression, result);
 }
 
 int main()
 {
-    char *exp = "acs(tan(exp(5)))/3\0";
+    char *expression = "acs(tan(exp(5)))/3\0";
 
-    evaluate(exp);
+    evaluate(expression);
 
     return EXIT_SUCCESS;
 }
