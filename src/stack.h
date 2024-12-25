@@ -31,4 +31,6 @@ void clear (struct stack *Istack);
 
 void destroyStack(struct stack **Istack);
 
+int stack_size(struct stack *Istack);
+
 #endif

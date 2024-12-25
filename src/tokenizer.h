@@ -33,6 +33,6 @@ bool is_function(char *token);
 
 bool is_number(char *token);
 
-struct token *get_token(char *exp);
+struct token *get_token(char *exp, char *expression);
 
 #endif

@@ -15,7 +15,6 @@ struct queue *queue_init (void)
 
 void enqueue (struct queue *q, char *value)
 {
-    printf("%s\n", value);
     struct queue_entry *entry = malloc(sizeof *entry);
     if(entry)
     {
