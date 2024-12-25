@@ -52,9 +52,9 @@ char *str_replace(char *orig, char *rep, char *with) {
 int main()
 {
     char *expression = " \0";
-    char *function = "nrt(3, X) \0";
+    char *function = "4*atn(1)\0";
 
-    for (float i = -2000; i < 2000; i ++)
+    for (float i = -10; i < 10; i ++)
     {
         char buffer[64];
         snprintf(buffer, sizeof(buffer), "%f", i);

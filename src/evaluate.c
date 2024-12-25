@@ -198,7 +198,7 @@ double postfix_eval(struct queue *output_queue, struct stack *eval_stack)
 	    } else if (strcmp(front(output_queue), "nrt") == 0) {
 		double B = strtod(top(eval_stack), NULL);
 		pop(eval_stack);
-		result = (A < 0) ? -pow(-A, 1.0 / B) : pow(A, 1.0 / B);
+		result = (A < 0 && ceilf(B) == B && (int)ceilf(B) % 2 == 1) ? -pow(-A, 1.0 / B) : pow(A, 1.0 / B);
 	    } else if (strcmp(front(output_queue), "max") == 0){
 		double B = strtod(top(eval_stack), NULL);
 		pop(eval_stack);
