@@ -184,10 +184,18 @@ double postfix_eval(struct queue *output_queue, struct stack *eval_stack)
 		result = log(A);
 	    } else if (strcmp(front(output_queue), "exp") == 0) {
 		result = exp(A);
+	    } else if (strcmp(front(output_queue), "srt") == 0) {
+		result = sqrt(A);
+	    } else if (strcmp(front(output_queue), "crt") == 0) {
+		result = pow(A, 1/3.);
 	    } else if (strcmp(front(output_queue), "log") == 0) {
 		double B = strtod(top(eval_stack), NULL);
 		pop(eval_stack);
 		result = log(A) / log(B); // log(base, esponente)         
+	    } else if (strcmp(front(output_queue), "nrt") == 0) {
+		double B = strtod(top(eval_stack), NULL);
+		pop(eval_stack);
+		result = pow(A, 1./B);
 	    } else {
 		printf("operazione non valida: %s\n", front(output_queue));
 	    }
@@ -224,7 +232,7 @@ void evaluate(char *expression)
 
 int main()
 {
-    char *expression = "acs(tan(exp(5)))/3\0";
+    char *expression = "crt(27)\0";
 
     evaluate(expression);
 
